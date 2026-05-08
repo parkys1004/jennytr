@@ -658,9 +658,9 @@ const App = () => {
       </AnimatePresence>
 
       {/* Modern Footer */}
-      <footer className="bg-slate-900 text-slate-400 py-32 px-6">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-4 gap-20">
-          <div className="col-span-2">
+      <footer className="bg-slate-900 text-slate-400 py-20 md:py-32 px-6">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 md:gap-20">
+          <div className="md:col-span-2">
             <div className="flex items-center gap-3 mb-8 text-white">
               <div className="w-12 h-12 bg-blue-600 rounded-2xl flex items-center justify-center font-black text-2xl shadow-xl shadow-blue-600/30">J</div>
               <span className="font-display font-black text-3xl tracking-tighter">Jenny Tr.</span>
@@ -684,8 +684,8 @@ const App = () => {
           </div>
           
           <div>
-            <h4 className="text-white font-display font-black text-xl mb-10 uppercase tracking-widest">Navigation</h4>
-            <ul className="space-y-6">
+            <h4 className="text-white font-display font-black text-lg md:text-xl mb-6 md:mb-10 uppercase tracking-widest">Navigation</h4>
+            <ul className="space-y-4 md:space-y-6">
               {navLinks.map(link => (
                 <li key={link.id}>
                   <a href={`#${link.id}`} className="hover:text-blue-400 font-bold transition-all flex items-center gap-2 group">
@@ -698,8 +698,8 @@ const App = () => {
           </div>
           
           <div>
-            <h4 className="text-white font-display font-black text-xl mb-10 uppercase tracking-widest">Support</h4>
-            <div className="bg-slate-800/50 p-8 rounded-3xl border border-white/5">
+            <h4 className="text-white font-display font-black text-lg md:text-xl mb-6 md:mb-10 uppercase tracking-widest">Support</h4>
+            <div className="bg-slate-800/50 p-6 md:p-8 rounded-3xl border border-white/5">
               <p className="text-sm font-bold uppercase tracking-widest text-slate-500 mb-4">Inquiry Window</p>
               <p className="text-white font-black text-lg mb-6">AM 10:00 - PM 07:00</p>
               <p className="leading-relaxed text-sm">
