@@ -25,7 +25,23 @@ import { motion, AnimatePresence } from 'motion/react';
 
 const App = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+
+  const [formData, setFormData] = useState({
+    name: '',
+    phone: '',
+    age: '',
+    message: ''
+  });
+
+  const handleFormSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log('상담 신청 데이터:', formData);
+    alert('상담 신청이 완료되었습니다. 제니 선생님이 확인 후 연락드리겠습니다!');
+    setIsModalOpen(false);
+    setFormData({ name: '', phone: '', age: '', message: '' });
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -83,7 +99,7 @@ const App = () => {
             </div>
             <div>
               <h1 className="text-xl font-black text-slate-900 leading-none">Jenny Tr. <span className="text-blue-600">Canada English</span></h1>
-              <p className="text-[10px] text-slate-500 font-bold tracking-widest mt-1 uppercase">Expert Phonics Education</p>
+              <p className="text-[10px] text-slate-600 font-extrabold tracking-widest mt-1 uppercase">Expert Phonics Education</p>
             </div>
           </motion.div>
 
@@ -96,22 +112,22 @@ const App = () => {
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: idx * 0.1 }}
-                className={`text-sm font-semibold tracking-wide transition-all hover:text-blue-500 relative group ${
-                  scrolled ? 'text-slate-600' : 'text-slate-700 lg:text-white/90'
+                className={`text-sm font-bold tracking-wide transition-all hover:text-blue-600 relative group ${
+                  scrolled ? 'text-slate-800' : 'text-slate-900'
                 }`}
               >
                 {link.name}
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-500 transition-all group-hover:w-full"></span>
               </motion.a>
             ))}
-            <motion.a 
-              href="https://blog.naver.com/canada-english" 
+            <motion.button 
+              onClick={() => setIsModalOpen(true)}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="bg-blue-600 text-white px-6 py-2.5 rounded-full font-bold text-sm hover:bg-blue-700 transition-all shadow-xl shadow-blue-600/20"
+              className="bg-blue-600 text-white px-6 py-2.5 rounded-full font-bold text-sm hover:bg-blue-700 transition-all shadow-xl shadow-blue-600/20 cursor-pointer"
             >
               상담 신청
-            </motion.a>
+            </motion.button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -143,12 +159,15 @@ const App = () => {
                     {link.name}
                   </a>
                 ))}
-                <a 
-                  href="https://blog.naver.com/canada-english" 
+                <button 
+                  onClick={() => {
+                    setIsModalOpen(true);
+                    setIsMenuOpen(false);
+                  }}
                   className="bg-blue-600 text-white px-8 py-4 rounded-2xl w-full text-center font-bold mt-4"
                 >
                   상담 신청
-                </a>
+                </button>
               </div>
             </motion.div>
           )}
@@ -162,7 +181,7 @@ const App = () => {
             initial={{ scale: 1.1, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 1.5 }}
-            src="https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&q=80&w=2000" 
+            src="https://github.com/parkys1004/img/blob/main/etc/jennytr02.png?raw=true" 
             alt="English Class" 
             className="w-full h-full object-cover"
           />
@@ -185,10 +204,10 @@ const App = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="font-display text-5xl md:text-7xl lg:text-8xl font-black mb-8 leading-[1.1] tracking-tight text-slate-900"
+              className="font-display text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black mb-6 md:mb-8 leading-[1.1] tracking-tight text-slate-900"
             >
               우리 아이 첫 영어,<br />
-              <span className="text-blue-600 underline decoration-blue-200 underline-offset-8">
+              <span className="text-blue-600 underline decoration-blue-200 underline-offset-4 md:underline-offset-8">
                 CVC Words
               </span>로<br />
               시작하세요!
@@ -198,7 +217,7 @@ const App = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="text-lg md:text-xl mb-12 text-slate-600 max-w-xl leading-relaxed font-semibold italic"
+              className="text-base sm:text-lg md:text-xl mb-10 md:mb-12 text-slate-600 max-w-xl leading-relaxed font-semibold italic"
             >
               토론토 몬테소리 자격증 보유, 캐나다 현지 교육 경험을 담아<br className="hidden md:block" />
               놀이처럼 즐거운 파닉스 학습의 기적을 선물합니다.
@@ -272,21 +291,23 @@ const App = () => {
       <section className="py-24 px-6 max-w-7xl mx-auto">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
           {[
-            { label: "Credentials", val: "Toronto", sub: "몬테소리 자격 보유", icon: <Award className="text-blue-600" /> },
-            { label: "Experience", val: "Canada", sub: "현지 유치원 교사 경력", icon: <GraduationCap className="text-blue-600" /> },
-            { label: "Specialty", val: "CVC", sub: "파닉스 특화 교수법", icon: <BookOpen className="text-blue-600" /> },
-            { label: "Quality", val: "100%", sub: "직접 제작 수제 교구", icon: <Star className="text-blue-600" /> }
+            { label: "Credentials", val: "Toronto", sub: "몬테소리 자격 보유", icon: Award },
+            { label: "Experience", val: "Canada", sub: "현지 유치원 교사 경력", icon: GraduationCap },
+            { label: "Specialty", val: "CVC", sub: "파닉스 특화 교수법", icon: BookOpen },
+            { label: "Quality", val: "100%", sub: "직접 제작 수제 교구", icon: Star }
           ].map((stat, i) => (
             <motion.div
               key={i}
               whileHover={{ y: -10 }}
-              className="p-8 bg-slate-50 rounded-[2rem] border border-slate-100 flex flex-col items-center justify-center text-center group"
+              className="p-8 bg-slate-50 rounded-[2rem] border border-slate-100 flex flex-col items-center justify-center text-center group transition-all duration-500 hover:bg-white hover:shadow-2xl hover:shadow-blue-500/10"
             >
-              <div className="mb-4 p-4 bg-white rounded-2xl shadow-sm group-hover:bg-blue-600 group-hover:text-white transition-colors duration-500">
-                {stat.icon}
+              <div className="mb-4 p-4 bg-white rounded-2xl shadow-sm group-hover:bg-blue-600 transition-colors duration-500">
+                {React.createElement(stat.icon, { 
+                  className: "w-6 h-6 text-blue-600 group-hover:text-white transition-colors duration-500" 
+                })}
               </div>
               <p className="font-display font-black text-4xl mb-2 text-slate-900">{stat.val}</p>
-              <p className="text-slate-500 font-bold text-sm tracking-tight">{stat.sub}</p>
+              <p className="text-slate-500 font-extrabold text-sm tracking-tight">{stat.sub}</p>
             </motion.div>
           ))}
         </div>
@@ -536,6 +557,105 @@ const App = () => {
           </div>
         </div>
       </section>
+
+      {/* Consultation Modal */}
+      <AnimatePresence>
+        {isModalOpen && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsModalOpen(false)}
+              className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"
+            ></motion.div>
+            
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              className="relative w-full max-w-lg bg-white rounded-[2rem] md:rounded-[2.5rem] shadow-2xl overflow-hidden max-h-[90vh] flex flex-col"
+            >
+              <div className="p-6 md:p-12 overflow-y-auto custom-scrollbar">
+                <button 
+                  onClick={() => setIsModalOpen(false)}
+                  className="absolute top-4 right-4 md:top-6 md:right-6 p-2 rounded-full hover:bg-slate-100 transition-colors z-10 bg-white/80 backdrop-blur-md"
+                >
+                  <X size={20} />
+                </button>
+                
+                <div className="mb-6 md:mb-8">
+                  <div className="inline-flex items-center gap-2 px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-[10px] md:text-xs font-black uppercase tracking-wider mb-3 md:mb-4">
+                    <Sparkles size={12} /> 상담 문의
+                  </div>
+                  <h2 className="text-2xl md:text-3xl font-black font-display text-slate-900 tracking-tight leading-tight">
+                    진짜 영어를 만나는 시작<br />
+                    <span className="text-blue-600">제니 선생님과 상담하세요!</span>
+                  </h2>
+                </div>
+
+                <form onSubmit={handleFormSubmit} className="space-y-4 md:space-y-5">
+                  <div className="space-y-1.5 md:space-y-2">
+                    <label className="text-xs md:text-sm font-bold text-slate-700 ml-1">학부모님 성함</label>
+                    <input 
+                      required
+                      type="text" 
+                      placeholder="성함을 입력해주세요"
+                      className="w-full px-4 md:px-5 py-3 md:py-4 bg-slate-50 border border-slate-100 rounded-xl md:rounded-2xl focus:ring-4 focus:ring-blue-100 focus:border-blue-500 outline-none transition-all font-medium text-sm md:text-base"
+                      value={formData.name}
+                      onChange={(e) => setFormData({...formData, name: e.target.value})}
+                    />
+                  </div>
+                  <div className="space-y-1.5 md:space-y-2">
+                    <label className="text-xs md:text-sm font-bold text-slate-700 ml-1">연락처</label>
+                    <input 
+                      required
+                      type="tel" 
+                      placeholder="010-0000-0000"
+                      className="w-full px-4 md:px-5 py-3 md:py-4 bg-slate-50 border border-slate-100 rounded-xl md:rounded-2xl focus:ring-4 focus:ring-blue-100 focus:border-blue-500 outline-none transition-all font-medium text-sm md:text-base"
+                      value={formData.phone}
+                      onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                    />
+                  </div>
+                  <div className="space-y-1.5 md:space-y-2">
+                    <label className="text-xs md:text-sm font-bold text-slate-700 ml-1">아이 나이 / 학년</label>
+                    <input 
+                      required
+                      type="text" 
+                      placeholder="예: 7세 / 초등 1학년"
+                      className="w-full px-4 md:px-5 py-3 md:py-4 bg-slate-50 border border-slate-100 rounded-xl md:rounded-2xl focus:ring-4 focus:ring-blue-100 focus:border-blue-500 outline-none transition-all font-medium text-sm md:text-base"
+                      value={formData.age}
+                      onChange={(e) => setFormData({...formData, age: e.target.value})}
+                    />
+                  </div>
+                  <div className="space-y-1.5 md:space-y-2">
+                    <label className="text-xs md:text-sm font-bold text-slate-700 ml-1">문의 내용 (선택)</label>
+                    <textarea 
+                      placeholder="궁금하신 내용을 남겨주세요"
+                      className="w-full px-4 md:px-5 py-3 md:py-4 bg-slate-50 border border-slate-100 rounded-xl md:rounded-2xl focus:ring-4 focus:ring-blue-100 focus:border-blue-500 outline-none transition-all font-medium h-20 md:h-24 resize-none text-sm md:text-base"
+                      value={formData.message}
+                      onChange={(e) => setFormData({...formData, message: e.target.value})}
+                    ></textarea>
+                  </div>
+                  <motion.button 
+                    whileHover={{ scale: 1.01 }}
+                    whileTap={{ scale: 0.98 }}
+                    type="submit"
+                    className="w-full py-4 md:py-5 bg-blue-600 text-white rounded-xl md:rounded-2xl font-black text-base md:text-lg shadow-xl shadow-blue-500/30 hover:bg-blue-700 transition-all flex items-center justify-center gap-2 mt-2 md:mt-4"
+                  >
+                    상담 신청 완료하기 <ArrowRight size={20} />
+                  </motion.button>
+                </form>
+                
+                <p className="mt-6 md:mt-8 text-center text-[10px] md:text-xs text-slate-400 font-medium">
+                  입력하신 개인정보는 상담 목적으로만 사용되며 안전하게 관리됩니다.
+                </p>
+              </div>
+            </motion.div>
+          </div>
+        )
+}
+      </AnimatePresence>
 
       {/* Modern Footer */}
       <footer className="bg-slate-900 text-slate-400 py-32 px-6">
