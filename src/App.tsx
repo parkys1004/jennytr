@@ -43,6 +43,21 @@ const App = () => {
     setFormData({ name: '', phone: '', age: '', message: '' });
   };
 
+  const scrollToSection = (id: string) => {
+    setIsMenuOpen(false);
+    const element = document.getElementById(id);
+    if (element) {
+      const offset = 80; // height of fixed header
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    }
+  };
+
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
@@ -92,33 +107,36 @@ const App = () => {
           <motion.div 
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="flex items-center gap-3 group cursor-pointer"
+            onClick={() => scrollToSection('home')}
+            className="flex items-center gap-2 md:gap-3 group cursor-pointer"
           >
-            <div className="w-12 h-12 bg-blue-600 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-blue-200 animate-pulse transition-transform">
-              <span className="text-2xl font-black">J</span>
+            <div className="w-10 h-10 md:w-12 md:h-12 bg-blue-600 rounded-xl md:rounded-2xl flex items-center justify-center text-white shadow-lg shadow-blue-200 transition-transform group-hover:scale-105">
+              <span className="text-xl md:text-2xl font-black">J</span>
             </div>
-            <div>
-              <h1 className="text-xl font-black text-slate-900 leading-none">Jenny Tr. <span className="text-blue-600">Canada English</span></h1>
-              <p className="text-[10px] text-slate-600 font-extrabold tracking-widest mt-1 uppercase">Expert Phonics Education</p>
+            <div className="flex flex-col">
+              <h1 className="text-base md:text-xl font-black text-slate-900 leading-tight">
+                Jenny Tr. <span className="text-blue-600 sm:inline block">Canada English</span>
+              </h1>
+              <p className="text-[8px] md:text-[10px] text-slate-600 font-extrabold tracking-widest uppercase">Expert Phonics Education</p>
             </div>
           </motion.div>
 
           {/* Desktop Menu */}
           <div className="hidden lg:flex items-center gap-10">
             {navLinks.map((link, idx) => (
-              <motion.a 
+              <motion.button 
                 key={link.id} 
-                href={`#${link.id}`}
+                onClick={() => scrollToSection(link.id)}
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: idx * 0.1 }}
-                className={`text-sm font-bold tracking-wide transition-all hover:text-blue-600 relative group ${
+                className={`text-sm font-bold tracking-wide transition-all hover:text-blue-600 relative group cursor-pointer ${
                   scrolled ? 'text-slate-800' : 'text-slate-900'
                 }`}
               >
                 {link.name}
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-500 transition-all group-hover:w-full"></span>
-              </motion.a>
+              </motion.button>
             ))}
             <motion.button 
               onClick={() => setIsModalOpen(true)}
@@ -138,40 +156,6 @@ const App = () => {
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
-
-        {/* Mobile Menu Overlay */}
-        <AnimatePresence>
-          {isMenuOpen && (
-            <motion.div 
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              className="lg:hidden bg-white border-t border-slate-100 overflow-hidden shadow-2xl"
-            >
-              <div className="flex flex-col p-6 gap-4">
-                {navLinks.map((link) => (
-                  <a 
-                    key={link.id} 
-                    href={`#${link.id}`}
-                    className="text-slate-700 font-bold text-lg py-2 border-b border-slate-50"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    {link.name}
-                  </a>
-                ))}
-                <button 
-                  onClick={() => {
-                    setIsModalOpen(true);
-                    setIsMenuOpen(false);
-                  }}
-                  className="bg-blue-600 text-white px-8 py-4 rounded-2xl w-full text-center font-bold mt-4"
-                >
-                  상담 신청
-                </button>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
       </nav>
 
       {/* Hero Section */}
@@ -228,13 +212,13 @@ const App = () => {
               transition={{ duration: 0.8, delay: 0.6 }}
               className="flex flex-col sm:flex-row gap-5"
             >
-              <motion.a 
-                href="#curriculum" 
+              <motion.button 
+                onClick={() => scrollToSection('curriculum')}
                 whileHover={{ scale: 1.05 }}
-                className="bg-slate-900 text-white px-10 py-5 rounded-2xl font-bold text-lg shadow-2xl hover:bg-black transition-all"
+                className="bg-slate-900 text-white px-10 py-5 rounded-2xl font-bold text-lg shadow-2xl hover:bg-black transition-all cursor-pointer"
               >
                 커리큘럼 확인하기
-              </motion.a>
+              </motion.button>
               <motion.a 
                 href="https://blog.naver.com/canada-english" 
                 whileHover={{ scale: 1.05 }}
@@ -342,7 +326,7 @@ const App = () => {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
               >
-                <h3 className="text-blue-400 font-display font-bold tracking-[0.2em] uppercase mb-4">Meet Your Mentor</h3>
+                <h3 className="text-blue-400 font-display font-bold tracking-[0.2em] uppercase mb-4">강사 소개</h3>
                 <h2 className="text-3xl sm:text-4xl md:text-6xl font-black mb-8 md:mb-10 leading-tight">캐나다 교육 전문가,<br />제니 선생님입니다</h2>
                 
                 <div className="grid gap-8">
@@ -393,7 +377,7 @@ const App = () => {
               whileInView={{ opacity: 1, y: 0 }}
               className="text-4xl md:text-6xl font-black mb-6 tracking-tight"
             >
-              Jenny's <br className="sm:hidden" /><span className="text-blue-600">CVC</span> Curriculum
+              제니의 <br className="sm:hidden" /><span className="text-blue-600">CVC</span> 커리큘럼
             </motion.h2>
             <p className="text-slate-500 text-xl font-medium">영어가 술술 읽히는 마법의 3단계 로드맵</p>
           </div>
@@ -652,14 +636,83 @@ const App = () => {
               </div>
             </motion.div>
           </div>
-        )
-}
+        )}
+      </AnimatePresence>
+
+      {/* Mobile Menu Drawer */}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <div className="fixed inset-0 z-[110] lg:hidden">
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"
+              onClick={() => setIsMenuOpen(false)}
+            />
+            <motion.div 
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "spring", damping: 25, stiffness: 200 }}
+              className="absolute top-0 right-0 bottom-0 w-[280px] bg-white shadow-2xl flex flex-col h-full"
+            >
+              <div className="p-6 flex justify-between items-center border-b border-slate-100 bg-white sticky top-0 z-10">
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white font-black text-sm">J</div>
+                  <span className="font-bold text-slate-900 tracking-tight">Jenny's Menu</span>
+                </div>
+                <button 
+                  onClick={() => setIsMenuOpen(false)}
+                  className="p-2 rounded-full hover:bg-slate-100 transition-colors"
+                >
+                  <X size={24} className="text-slate-600" />
+                </button>
+              </div>
+              
+              <div className="flex-1 overflow-y-auto px-6 py-8 custom-scrollbar">
+                <div className="flex flex-col gap-2">
+                  {navLinks.map((link) => (
+                    <button 
+                      key={link.id} 
+                      type="button"
+                      onClick={() => scrollToSection(link.id)}
+                      className="flex items-center justify-between w-full py-4 px-2 text-left text-slate-700 hover:text-blue-600 font-bold text-lg border-b border-slate-50 transition-colors group"
+                    >
+                      {link.name}
+                      <ChevronRight size={18} className="text-slate-300 group-hover:text-blue-600 transition-all opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0" />
+                    </button>
+                  ))}
+                </div>
+                
+                <div className="mt-10">
+                  <button 
+                    type="button"
+                    onClick={() => {
+                      setIsModalOpen(true);
+                      setIsMenuOpen(false);
+                    }}
+                    className="w-full bg-blue-600 text-white rounded-2xl py-5 font-black text-lg shadow-xl shadow-blue-600/30 flex items-center justify-center gap-2 active:scale-[0.98] transition-transform"
+                  >
+                    상담 신청하기 <ArrowRight size={20} />
+                  </button>
+                  
+                  <div className="mt-10 p-6 bg-slate-50 rounded-2xl border border-slate-100">
+                    <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">Contact</p>
+                    <p className="text-sm font-bold text-slate-600 mb-1">AM 10:00 - PM 07:00</p>
+                    <p className="text-xs text-slate-400">네이버 톡톡 / 블로그 비밀댓글</p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        )}
       </AnimatePresence>
 
       {/* Modern Footer */}
       <footer className="bg-slate-900 text-slate-400 py-16 md:py-32 px-6">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-1 lg:grid-cols-4 gap-16 md:gap-20">
-          <div className="lg:col-span-2">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-20">
+          <div className="md:col-span-2">
             <div className="flex items-center gap-3 mb-8 text-white">
               <div className="w-12 h-12 bg-blue-600 rounded-2xl flex items-center justify-center font-black text-2xl shadow-xl shadow-blue-600/30">J</div>
               <span className="font-display font-black text-3xl tracking-tighter">Jenny Tr.</span>
@@ -683,23 +736,26 @@ const App = () => {
           </div>
           
           <div>
-            <h4 className="text-white font-display font-black text-base md:text-xl mb-6 md:mb-10 uppercase tracking-widest">Navigation</h4>
+            <h4 className="text-white font-display font-black text-base md:text-xl mb-6 md:mb-10 uppercase tracking-widest">메뉴 바로가기</h4>
             <ul className="space-y-4 md:space-y-6">
               {navLinks.map(link => (
                 <li key={link.id}>
-                  <a href={`#${link.id}`} className="hover:text-blue-400 font-bold transition-all flex items-center gap-2 group">
+                  <button 
+                    onClick={() => scrollToSection(link.id)} 
+                    className="hover:text-blue-400 font-bold transition-all flex items-center gap-2 group w-full text-left cursor-pointer"
+                  >
                     <ChevronRight size={14} className="opacity-0 group-hover:opacity-100 -translate-x-4 group-hover:translate-x-0 transition-all" />
                     {link.name}
-                  </a>
+                  </button>
                 </li>
               ))}
             </ul>
           </div>
           
           <div>
-            <h4 className="text-white font-display font-black text-base md:text-xl mb-6 md:mb-10 uppercase tracking-widest">Support</h4>
+            <h4 className="text-white font-display font-black text-base md:text-xl mb-6 md:mb-10 uppercase tracking-widest">상담 및 지원</h4>
             <div className="bg-slate-800/50 p-6 md:p-8 rounded-3xl border border-white/5">
-              <p className="text-sm font-bold uppercase tracking-widest text-slate-500 mb-4">Inquiry Window</p>
+              <p className="text-sm font-bold uppercase tracking-widest text-slate-500 mb-4">상담 및 문의 안내</p>
               <p className="text-white font-black text-lg mb-6">AM 10:00 - PM 07:00</p>
               <p className="leading-relaxed text-sm">
                 수업 관련 상담 및 교구 문의는 네이버 블로그 비밀댓글 또는 톡톡을 이용해 주세요.
