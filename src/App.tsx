@@ -76,22 +76,54 @@ const App = () => {
 
   const curriculumSteps = [
     {
-      title: "Step 01. 음가 익히기",
-      desc: "단모음(Short Vowels)의 정확한 소리를 익히고 각 알파벳의 음가를 마스터합니다.",
+      title: "Step 1: Letter Sounds",
+      desc: "알파벳의 이름이 아닌, 단어 속에서 실제로 나는 소리를 익히는 기초 단계입니다.",
+      details: [
+        "핵심: A는 '에이'가 아니라 [애], B는 '비'가 아니라 [브].",
+        "예시: f [프], m [음], s [스]"
+      ],
       icon: <PlayCircle className="w-8 h-8 text-blue-500" />,
       color: "bg-blue-50"
     },
     {
-      title: "Step 02. CVC 조합",
-      desc: "자음-모음-자음(Consonant-Vowel-Consonant)을 결합하여 스스로 단어를 읽기 시작합니다.",
+      title: "Step 2: CVC (Short Vowels)",
+      desc: "'자음+모음+자음'으로 이루어진 짧은 단어를 소리 내어 합치는 '블렌딩' 단계입니다.",
+      details: [
+        "핵심: 세 개의 소리를 끊지 않고 연결해 읽기.",
+        "예시: c(크)+a(애)+t(트)=cat(캣), p(프)+i(이)+g(그)=pig(피그)"
+      ],
       icon: <BookOpen className="w-8 h-8 text-emerald-500" />,
       color: "bg-emerald-50"
     },
     {
-      title: "Step 03. 문장 확장",
-      desc: "배운 CVC 단어들을 활용해 기초 문장을 읽고 독해력을 키웁니다.",
+      title: "Step 3: Magic E (Long Vowels)",
+      desc: "단어 끝에 e가 붙으면서 앞의 모음 소리를 '알파벳 이름' 그대로 길게 바꾸는 단계입니다.",
+      details: [
+        "핵심: 끝의 e는 소리 내지 않고 앞 모음만 길게 발음.",
+        "예시: h-o-p(홉)→hope(호우프), m-a-d(매드)→made(메이드)"
+      ],
       icon: <Sparkles className="w-8 h-8 text-purple-500" />,
       color: "bg-purple-50"
+    },
+    {
+      title: "Step 4: Consonant Clusters",
+      desc: "두 개의 자음이 나란히 올 때 어떻게 소리 나는지 배우는 단계입니다.",
+      details: [
+        "Blends(혼합): 두 소리가 살아있음 (bl, st, fr 등)",
+        "Digraphs(이중): 합쳐져 새로운 소리 (sh, ch, th 등)"
+      ],
+      icon: <GraduationCap className="w-8 h-8 text-orange-500" />,
+      color: "bg-orange-50"
+    },
+    {
+      title: "Step 5: R-controlled (Vowel Teams)",
+      desc: "모음 두 개가 만나거나, 모음 뒤에 r이 붙어 소리가 변하는 고난도 단계입니다.",
+      details: [
+        "Vowel Teams: ai[에이], ee[이-], oa[오우] (예: rain)",
+        "Bossy R: ar[아-ㄹ], er/ir/ur[어-ㄹ] (예: car, bird)"
+      ],
+      icon: <Star className="w-8 h-8 text-rose-500" />,
+      color: "bg-rose-50"
     }
   ];
 
@@ -371,41 +403,63 @@ const App = () => {
       {/* Curriculum - Interactive Steps */}
       <section id="curriculum" className="py-32 px-6 bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-24">
+          <div className="text-center mb-20">
             <motion.h2 
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               className="text-4xl md:text-6xl font-black mb-6 tracking-tight"
             >
-              제니의 <br className="sm:hidden" /><span className="text-blue-600">CVC</span> 커리큘럼
+              Jenny's <span className="text-blue-600">Phonics</span> Curriculum
             </motion.h2>
-            <p className="text-slate-500 text-xl font-medium">영어가 술술 읽히는 마법의 3단계 로드맵</p>
+            <p className="text-slate-500 text-xl font-medium">영어가 술술 읽히는 마법의 5단계 로드맵</p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-10 relative">
-            <div className="hidden lg:block absolute top-1/2 left-0 w-full h-1 bg-slate-100 -translate-y-1/2 z-0"></div>
-            
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 relative">
             {curriculumSteps.map((step, idx) => (
               <motion.div 
                 key={idx}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ delay: idx * 0.3 }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: idx * 0.1 }}
                 viewport={{ once: true }}
-                className="relative z-10"
+                className="group"
               >
-                <div className={`p-10 rounded-[2.5rem] ${idx === 1 ? 'bg-blue-600 shadow-2xl shadow-blue-200 border-transparent' : 'glass-card border-white/50'} step-card h-full flex flex-col items-center text-center transition-all`}>
-                  <div className={`mb-8 p-6 ${idx === 1 ? 'bg-white/20' : 'bg-blue-50'} rounded-3xl`}>
-                    {idx === 1 ? React.cloneElement(step.icon as React.ReactElement, { className: 'w-8 h-8 text-white' }) : step.icon}
+                <div className="p-8 rounded-[2rem] glass-card border-white/50 h-full flex flex-col items-start transition-all hover:bg-white hover:shadow-2xl hover:shadow-blue-500/5">
+                  <div className={`mb-6 p-4 ${step.color} rounded-2xl`}>
+                    {step.icon}
                   </div>
-                  <h3 className={`text-2xl font-black mb-6 font-display ${idx === 1 ? 'text-white' : 'text-slate-900'}`}>{step.title}</h3>
-                  <p className={`leading-relaxed font-semibold ${idx === 1 ? 'text-blue-50' : 'text-slate-500'}`}>
+                  <h3 className="text-xl font-black mb-4 font-display text-slate-900 group-hover:text-blue-600 transition-colors">{step.title}</h3>
+                  <p className="leading-relaxed text-sm font-medium text-slate-600 mb-6">
                     {step.desc}
                   </p>
+                  <div className="mt-auto pt-6 border-t border-slate-100 w-full space-y-2">
+                    {step.details.map((detail, dIdx) => (
+                      <p key={dIdx} className="text-[11px] font-bold text-slate-400 flex items-start gap-1.5 leading-snug">
+                        <span className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-1 flex-shrink-0"></span>
+                        {detail}
+                      </p>
+                    ))}
+                  </div>
                 </div>
               </motion.div>
             ))}
           </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mt-12 p-8 bg-blue-50/50 border border-blue-100 rounded-[2rem] flex items-start gap-4"
+          >
+            <div className="w-12 h-12 bg-white rounded-xl shadow-sm flex items-center justify-center text-2xl flex-shrink-0">💡</div>
+            <div>
+              <h4 className="font-black text-blue-900 mb-1">Jenny's Tip: Sight Words 병행</h4>
+              <p className="text-blue-800/70 text-sm font-medium leading-relaxed">
+                파닉스 규칙을 벗어나는 Sight Words(the, is, you 등)는 규칙과 상관없이 통째로 외워주는 것이 <br className="hidden md:block" />
+                병행되어야 완벽한 독해가 가능합니다. 규칙과 예외를 함께 배워요!
+              </p>
+            </div>
+          </motion.div>
 
           <motion.div 
             whileHover={{ scale: 1.02 }}
