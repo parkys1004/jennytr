@@ -204,13 +204,12 @@ const App = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="font-display text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black mb-6 md:mb-8 leading-[1.1] tracking-tight text-slate-900"
+              className="font-display text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-black mb-6 md:mb-8 leading-[1.1] tracking-tight text-slate-900"
             >
               우리 아이 첫 영어,<br />
               <span className="text-blue-600 underline decoration-blue-200 underline-offset-4 md:underline-offset-8">
                 CVC Words
-              </span>로<br />
-              시작하세요!
+              </span><br className="sm:hidden" />로 시작하세요!
             </motion.h1>
 
             <motion.p 
@@ -344,7 +343,7 @@ const App = () => {
                 viewport={{ once: true }}
               >
                 <h3 className="text-blue-400 font-display font-bold tracking-[0.2em] uppercase mb-4">Meet Your Mentor</h3>
-                <h2 className="text-5xl md:text-6xl font-black mb-10 leading-tight">캐나다 교육 전문가,<br />제니 선생님입니다</h2>
+                <h2 className="text-3xl sm:text-4xl md:text-6xl font-black mb-8 md:mb-10 leading-tight">캐나다 교육 전문가,<br />제니 선생님입니다</h2>
                 
                 <div className="grid gap-8">
                   {[
@@ -362,7 +361,7 @@ const App = () => {
                     >
                       <div className="mt-1 flex-shrink-0">{item.icon}</div>
                       <div>
-                        <h4 className="text-xl font-bold mb-2">{item.title}</h4>
+                        <h4 className="text-lg md:text-xl font-bold mb-2">{item.title}</h4>
                         <p className="text-slate-400 leading-relaxed font-medium">{item.desc}</p>
                       </div>
                     </motion.div>
@@ -394,7 +393,7 @@ const App = () => {
               whileInView={{ opacity: 1, y: 0 }}
               className="text-4xl md:text-6xl font-black mb-6 tracking-tight"
             >
-              Jenny's <span className="text-blue-600">CVC</span> Curriculum
+              Jenny's <br className="sm:hidden" /><span className="text-blue-600">CVC</span> Curriculum
             </motion.h2>
             <p className="text-slate-500 text-xl font-medium">영어가 술술 읽히는 마법의 3단계 로드맵</p>
           </div>
@@ -455,7 +454,7 @@ const App = () => {
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex flex-col lg:flex-row justify-between items-end mb-20 gap-8">
             <div className="max-w-2xl">
-              <h2 className="text-4xl md:text-6xl font-black mb-6 tracking-tight">차원이 다른 <span className="text-blue-600 underline">교구</span> 컬렉션</h2>
+              <h2 className="text-4xl md:text-6xl font-black mb-6 tracking-tight">차원이 다른<br className="sm:hidden" /> <span className="text-blue-600 underline">교구</span> 컬렉션</h2>
               <p className="text-slate-500 text-xl font-medium">선생님이 밤새 고민하며 직접 제작한 고퀄리티 학습 자료들입니다.</p>
             </div>
             <motion.a 
@@ -512,8 +511,8 @@ const App = () => {
           >
             <Instagram size={56} className="text-blue-600" />
           </motion.div>
-          <h2 className="text-5xl md:text-7xl font-black mb-10 tracking-tight leading-tight">
-            Jenny's Canada English <br /><span className="text-slate-400">네이버 블로그</span>
+          <h2 className="text-4xl sm:text-5xl md:text-7xl font-black mb-10 tracking-tight leading-tight">
+            Jenny's Canada English <br /><span className="text-slate-400 text-2xl sm:text-4xl md:text-5xl">네이버 블로그</span>
           </h2>
           <p className="text-lg md:text-2xl text-slate-500 mb-16 leading-relaxed max-w-3xl mx-auto font-medium">
             매일 업데이트되는 교육 정보와 캐나다 현지 리얼 소식,<br />
@@ -590,7 +589,7 @@ const App = () => {
                   </div>
                   <h2 className="text-2xl md:text-3xl font-black font-display text-slate-900 tracking-tight leading-tight">
                     진짜 영어를 만나는 시작<br />
-                    <span className="text-blue-600">제니 선생님과 상담하세요!</span>
+                    <span className="text-blue-600">제니 선생님과 <br className="sm:hidden" />상담하세요!</span>
                   </h2>
                 </div>
 
@@ -658,9 +657,9 @@ const App = () => {
       </AnimatePresence>
 
       {/* Modern Footer */}
-      <footer className="bg-slate-900 text-slate-400 py-20 md:py-32 px-6">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 md:gap-20">
-          <div className="md:col-span-2">
+      <footer className="bg-slate-900 text-slate-400 py-16 md:py-32 px-6">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-1 lg:grid-cols-4 gap-16 md:gap-20">
+          <div className="lg:col-span-2">
             <div className="flex items-center gap-3 mb-8 text-white">
               <div className="w-12 h-12 bg-blue-600 rounded-2xl flex items-center justify-center font-black text-2xl shadow-xl shadow-blue-600/30">J</div>
               <span className="font-display font-black text-3xl tracking-tighter">Jenny Tr.</span>
@@ -684,7 +683,7 @@ const App = () => {
           </div>
           
           <div>
-            <h4 className="text-white font-display font-black text-lg md:text-xl mb-6 md:mb-10 uppercase tracking-widest">Navigation</h4>
+            <h4 className="text-white font-display font-black text-base md:text-xl mb-6 md:mb-10 uppercase tracking-widest">Navigation</h4>
             <ul className="space-y-4 md:space-y-6">
               {navLinks.map(link => (
                 <li key={link.id}>
@@ -698,7 +697,7 @@ const App = () => {
           </div>
           
           <div>
-            <h4 className="text-white font-display font-black text-lg md:text-xl mb-6 md:mb-10 uppercase tracking-widest">Support</h4>
+            <h4 className="text-white font-display font-black text-base md:text-xl mb-6 md:mb-10 uppercase tracking-widest">Support</h4>
             <div className="bg-slate-800/50 p-6 md:p-8 rounded-3xl border border-white/5">
               <p className="text-sm font-bold uppercase tracking-widest text-slate-500 mb-4">Inquiry Window</p>
               <p className="text-white font-black text-lg mb-6">AM 10:00 - PM 07:00</p>
