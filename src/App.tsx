@@ -15,7 +15,7 @@ import {
   Instagram, 
   ExternalLink,
   MessageCircle,
-  PlayCircle,
+  Mic,
   FileText,
   Sparkles,
   ChevronRight,
@@ -35,12 +35,31 @@ const App = () => {
     message: ''
   });
 
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('상담 신청 데이터:', formData);
-    alert('상담 신청이 완료되었습니다. 제니 선생님이 확인 후 연락드리겠습니다!');
-    setIsModalOpen(false);
-    setFormData({ name: '', phone: '', age: '', message: '' });
+    
+    try {
+      const response = await fetch('/api/consultation', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert(data.message || '상담 신청이 완료되었습니다. 제니 선생님이 확인 후 연락드리겠습니다!');
+        setIsModalOpen(false);
+        setFormData({ name: '', phone: '', age: '', message: '' });
+      } else {
+        alert(data.error || '오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+      }
+    } catch (error) {
+      console.error('상담 신청 오류:', error);
+      alert('서버와 통신 중 오류가 발생했습니다. 네이버 블로그를 통해 문의해주세요.');
+    }
   };
 
   const scrollToSection = (id: string) => {
@@ -82,7 +101,7 @@ const App = () => {
         "핵심: A는 '에이'가 아니라 [애], B는 '비'가 아니라 [브].",
         "예시: f [프], m [음], s [스]"
       ],
-      icon: <PlayCircle className="w-8 h-8 text-blue-500" />,
+      icon: <Mic className="w-8 h-8 text-blue-500" />,
       color: "bg-blue-50"
     },
     {
@@ -212,7 +231,7 @@ const App = () => {
             >
               <div className="inline-flex items-center gap-2 px-5 py-2 bg-white/80 backdrop-blur-md border border-blue-100 rounded-full text-blue-600 font-bold text-sm mb-8 animate-float shadow-sm">
                 <span className="flex h-2 w-2 rounded-full bg-blue-600"></span>
-                <span>캐나다 토론토 몬테소리 자격 보유</span>
+                <span>캐나다 현지 영어 선생님 출신. 캐나다 유치원 교사 자격증 보유, 토론토 몬테소리 자격증 보유</span>
               </div>
             </motion.div>
             
@@ -222,9 +241,9 @@ const App = () => {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="font-display text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-black mb-6 md:mb-8 leading-[1.1] tracking-tight text-slate-900"
             >
-              우리 아이 첫 영어,<br />
+              우리아이 첫 영어,<br />
               <span className="text-blue-600 underline decoration-blue-200 underline-offset-4 md:underline-offset-8">
-                CVC Words
+                Canada English
               </span><br className="sm:hidden" />로 시작하세요!
             </motion.h1>
 
@@ -234,8 +253,8 @@ const App = () => {
               transition={{ duration: 0.8, delay: 0.4 }}
               className="text-base sm:text-lg md:text-xl mb-10 md:mb-12 text-slate-600 max-w-xl leading-relaxed font-semibold italic"
             >
-              토론토 몬테소리 자격증 보유, 캐나다 현지 교육 경험을 담아<br className="hidden md:block" />
-              놀이처럼 즐거운 파닉스 학습의 기적을 선물합니다.
+              캐나다 현지 교육 경험을 담아<br className="hidden md:block" />
+              즐거운 영어 학습의 기적을 선물합니다.
             </motion.p>
             
             <motion.div 
@@ -245,11 +264,11 @@ const App = () => {
               className="flex flex-col sm:flex-row gap-5"
             >
               <motion.button 
-                onClick={() => scrollToSection('curriculum')}
+                onClick={() => setIsModalOpen(true)}
                 whileHover={{ scale: 1.05 }}
                 className="bg-slate-900 text-white px-10 py-5 rounded-2xl font-bold text-lg shadow-2xl hover:bg-black transition-all cursor-pointer"
               >
-                커리큘럼 확인하기
+                1:1 체험수업 문의하기
               </motion.button>
               <motion.a 
                 href="https://blog.naver.com/canada-english" 
@@ -306,10 +325,10 @@ const App = () => {
       <section className="py-24 px-6 max-w-7xl mx-auto">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
           {[
-            { label: "Credentials", val: "Toronto", sub: "몬테소리 자격 보유", icon: Award },
-            { label: "Experience", val: "Canada", sub: "현지 유치원 교사 경력", icon: GraduationCap },
-            { label: "Specialty", val: "CVC", sub: "파닉스 특화 교수법", icon: BookOpen },
-            { label: "Quality", val: "100%", sub: "직접 제작 수제 교구", icon: Star }
+            { label: "Credentials", val: "Canada", sub: "현지 유치원 교사 경력.", icon: Award },
+            { label: "Experience", val: "Toronto", sub: "현지 몬테소리 학교 교사 경력.", icon: GraduationCap },
+            { label: "Specialty", val: "Phonics", sub: "현지 캐나다 발음 어학 선생님", icon: BookOpen },
+            { label: "Quality", val: "100%", sub: "현지 직접 제작 수제 교재 & 교구", icon: Star }
           ].map((stat, i) => (
             <motion.div
               key={i}
@@ -358,13 +377,13 @@ const App = () => {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
               >
-                <h3 className="text-blue-400 font-display font-bold tracking-[0.2em] uppercase mb-4">강사 소개</h3>
-                <h2 className="text-3xl sm:text-4xl md:text-6xl font-black mb-8 md:mb-10 leading-tight">캐나다 교육 전문가,<br />제니 선생님입니다</h2>
+                <h3 className="text-blue-400 font-display font-bold tracking-[0.2em] uppercase mb-4">MEET YOUR MENTOR</h3>
+                <h2 className="text-3xl sm:text-4xl md:text-6xl font-black mb-8 md:mb-10 leading-tight">캐나다 교육 전문가,<br />제니 선생님입니다.</h2>
                 
                 <div className="grid gap-8">
                   {[
                     { title: "현지 유치원 리얼 티칭", desc: "캐나다 아이들이 실제로 영어를 배우는 방식을 그대로 구현합니다.", icon: <CheckCircle className="text-emerald-400" /> },
-                    { title: "토론토 몬테소리 자격증", desc: "교구 중심의 자아 실현 교육 철학으로 아이들의 잠재력을 끌어냅니다.", icon: <CheckCircle className="text-emerald-400" /> },
+                    { title: "토론토 몬테소리 교사 경력", desc: "교육심의 자아 실현 교육 철학으로 아이들의 잠재력을 끌어냅니다.", icon: <CheckCircle className="text-emerald-400" /> },
                     { title: "1:1 밀착 감성 코칭", desc: "단순 교육을 넘어 아이와 정서적 유대를 통해 영어를 친숙하게 만듭니다.", icon: <CheckCircle className="text-emerald-400" /> }
                   ].map((item, i) => (
                     <motion.div 
@@ -434,9 +453,16 @@ const App = () => {
                   </p>
                   <div className="mt-auto pt-6 border-t border-slate-100 w-full space-y-2">
                     {step.details.map((detail, dIdx) => (
-                      <p key={dIdx} className="text-[11px] font-bold text-slate-400 flex items-start gap-1.5 leading-snug">
-                        <span className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-1 flex-shrink-0"></span>
-                        {detail}
+                      <p key={dIdx} className="text-[14px] font-bold text-slate-700 flex items-start gap-1.5 leading-relaxed">
+                        <span className="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 flex-shrink-0"></span>
+                        <span>
+                          {detail.includes(':') ? (
+                            <>
+                              <span className="text-blue-600 font-black mr-1">{detail.split(':')[0]}:</span>
+                              {detail.split(':').slice(1).join(':')}
+                            </>
+                          ) : detail}
+                        </span>
                       </p>
                     ))}
                   </div>
