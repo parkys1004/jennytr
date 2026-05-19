@@ -135,7 +135,7 @@ const App = () => {
       color: "bg-orange-50"
     },
     {
-      title: "Step 5: R-controlled (Vowel Teams)",
+      title: "Step 5: Vowel Teams (Bossy R)",
       desc: "모음 두 개가 만나거나, 모음 뒤에 r이 붙어 소리가 변하는 고난도 단계입니다.",
       details: [
         "Vowel Teams: ai[에이], ee[이-], oa[오우] (예: rain)",
@@ -161,12 +161,12 @@ const App = () => {
             onClick={() => scrollToSection('home')}
             className="flex items-center gap-2 md:gap-3 group cursor-pointer"
           >
-            <div className="w-10 h-10 md:w-12 md:h-12 bg-blue-600 rounded-xl md:rounded-2xl flex items-center justify-center text-white shadow-lg shadow-blue-200 transition-transform group-hover:scale-105">
+            <div className="w-10 h-10 md:w-12 md:h-12 bg-red-600 rounded-xl md:rounded-2xl flex items-center justify-center text-white shadow-lg shadow-red-200 transition-transform group-hover:scale-105">
               <span className="text-xl md:text-2xl font-black">J</span>
             </div>
             <div className="flex flex-col">
               <h1 className="text-base md:text-xl font-black text-slate-900 leading-tight">
-                Jenny Tr. <span className="text-blue-600 sm:inline block">Canada English</span>
+                Jenny Tr. <span className="text-red-600 sm:inline block">Canada English</span>
               </h1>
               <p className="text-[8px] md:text-[10px] text-slate-600 font-extrabold tracking-widest uppercase">Expert Phonics Education</p>
             </div>
@@ -224,27 +224,35 @@ const App = () => {
 
         <div className="relative z-20 max-w-7xl mx-auto px-6 w-full grid lg:grid-cols-12 gap-16 items-center">
           <div className="lg:col-span-7">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-            >
-              <div className="inline-flex items-center gap-2 px-5 py-2 bg-white/80 backdrop-blur-md border border-blue-100 rounded-full text-blue-600 font-bold text-sm mb-8 animate-float shadow-sm">
-                <span className="flex h-2 w-2 rounded-full bg-blue-600"></span>
-                <span>캐나다 현지 영어 선생님 출신. 캐나다 유치원 교사 자격증 보유, 토론토 몬테소리 자격증 보유</span>
-              </div>
-            </motion.div>
+            <div className="lg:col-span-12 mb-12 flex flex-col gap-3">
+              {[
+                "캐나다 현지 영어 선생님 출신",
+                "캐나다 유치원 교사 자격증 보유",
+                "토론토 몬테소리 교사 자격증 보유"
+              ].map((badge, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: i * 0.1 }}
+                  className="inline-flex self-start items-center gap-2 px-5 py-2 bg-white/90 backdrop-blur-md border border-red-100 rounded-full text-red-600 font-bold text-sm shadow-sm"
+                >
+                  <span className="flex h-2 w-2 rounded-full bg-red-600"></span>
+                  <span>{badge}</span>
+                </motion.div>
+              ))}
+            </div>
             
             <motion.h1 
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="font-display text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-black mb-6 md:mb-8 leading-[1.1] tracking-tight text-slate-900"
+              className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black mb-6 md:mb-8 leading-[1.3] tracking-tight text-slate-900"
             >
-              우리아이 첫 영어,<br />
-              <span className="text-blue-600 underline decoration-blue-200 underline-offset-4 md:underline-offset-8">
+              어렵다고 느낀 영어,<br />
+              이제 <span className="text-red-600 underline decoration-red-200 underline-offset-4 md:underline-offset-8">
                 Canada English
-              </span><br className="sm:hidden" />로 시작하세요!
+              </span> 로<br className="lg:hidden" /> 쉽고 재미있게 시작하세요!
             </motion.h1>
 
             <motion.p 
@@ -253,8 +261,7 @@ const App = () => {
               transition={{ duration: 0.8, delay: 0.4 }}
               className="text-base sm:text-lg md:text-xl mb-10 md:mb-12 text-slate-600 max-w-xl leading-relaxed font-semibold italic"
             >
-              캐나다 현지 교육 경험을 담아<br className="hidden md:block" />
-              즐거운 영어 학습의 기적을 선물합니다.
+              캐나다 현지 교육 경험을 담아 즐거운 영어 학습의 기적을 선물합니다.
             </motion.p>
             
             <motion.div 
@@ -383,7 +390,7 @@ const App = () => {
                 <div className="grid gap-8">
                   {[
                     { title: "현지 유치원 리얼 티칭", desc: "캐나다 아이들이 실제로 영어를 배우는 방식을 그대로 구현합니다.", icon: <CheckCircle className="text-emerald-400" /> },
-                    { title: "토론토 몬테소리 교사 경력", desc: "교육심의 자아 실현 교육 철학으로 아이들의 잠재력을 끌어냅니다.", icon: <CheckCircle className="text-emerald-400" /> },
+                    { title: "몬테소리 자아실현 교육 철학", desc: "아이들의 숨어있는 잠재력을 이끌어내는 자기주도적 학습을 지향합니다.", icon: <CheckCircle className="text-emerald-400" /> },
                     { title: "1:1 밀착 감성 코칭", desc: "단순 교육을 넘어 아이와 정서적 유대를 통해 영어를 친숙하게 만듭니다.", icon: <CheckCircle className="text-emerald-400" /> }
                   ].map((item, i) => (
                     <motion.div 
@@ -410,7 +417,7 @@ const App = () => {
                   className="mt-12 p-8 bg-white/5 border border-white/10 rounded-3xl backdrop-blur-sm"
                 >
                   <p className="text-slate-300 italic text-lg leading-relaxed">
-                    "캐나다 현지 교육 현장에서 가장 효과적이었던 파닉스 교수법을 우리 아이들에게 전하고 싶습니다. 단순 암기가 아닌 원리를 깨닫는 환희를 경험하게 해줄게요."
+                    “캐나다 현지 교육 현장에서 가장 효과적이었던 파닉스 교수법을 전하고 싶습니다. 단순 암기가 아닌 원리를 깨닫는 제니의 교수법“
                   </p>
                 </motion.div>
               </motion.div>
@@ -492,10 +499,11 @@ const App = () => {
             className="mt-20 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-[3rem] p-10 md:p-16 text-white flex flex-col lg:flex-row items-center justify-between gap-12 shadow-3xl shadow-blue-600/30"
           >
             <div className="max-w-2xl">
-              <h3 className="text-3xl md:text-4xl font-black mb-4 font-display">왜 CVC Words 인가요?</h3>
+              <h3 className="text-3xl md:text-4xl font-black mb-6 font-display">왜 파닉스를 제대로 배워야 할까요?</h3>
               <p className="text-blue-100 text-lg md:text-xl leading-relaxed font-medium">
-                CVC(자음+모음+자음)는 모든 영어 단어의 기본이자 핵심입니다. 
-                이 패턴만 마스터해도 아이들은 모르는 단어를 보았을 때 스스로 소리를 유추해내는 '자체 해결 능력'을 갖게 됩니다.
+                영어는 글자가 아니라 <span className="text-white font-black underline decoration-blue-300 underline-offset-4">“소리”</span>로 시작됩니다. 
+                파닉스를 원어민 발음으로 배우면 듣기와 말하기 기초가 훨씬 자연스럽게 완성됩니다. 
+                <span className="block mt-4 text-white font-black">처음 배운 발음 습관이 영어 실력을 결정합니다.</span>
               </p>
             </div>
             <div className="bg-white/10 p-8 rounded-[2rem] backdrop-blur-md border border-white/20 text-center min-w-[240px]">
@@ -739,7 +747,7 @@ const App = () => {
             >
               <div className="p-6 flex justify-between items-center border-b border-slate-100 bg-white sticky top-0 z-10">
                 <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white font-black text-sm">J</div>
+                  <div className="w-8 h-8 bg-red-600 rounded-lg flex items-center justify-center text-white font-black text-sm">J</div>
                   <span className="font-bold text-slate-900 tracking-tight">Jenny's Menu</span>
                 </div>
                 <button 
@@ -794,7 +802,7 @@ const App = () => {
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-20">
           <div className="md:col-span-2">
             <div className="flex items-center gap-3 mb-8 text-white">
-              <div className="w-12 h-12 bg-blue-600 rounded-2xl flex items-center justify-center font-black text-2xl shadow-xl shadow-blue-600/30">J</div>
+              <div className="w-12 h-12 bg-red-600 rounded-2xl flex items-center justify-center font-black text-2xl shadow-xl shadow-red-600/30">J</div>
               <span className="font-display font-black text-3xl tracking-tighter">Jenny Tr.</span>
             </div>
             <p className="max-w-md leading-loose mb-10 text-lg">
