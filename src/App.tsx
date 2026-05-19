@@ -540,10 +540,10 @@ const App = () => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
-              { title: "CVC 마스터 카드", type: "Visual Arts", color: "bg-orange-100", img: "https://images.unsplash.com/photo-1516627145497-ae6968895b74?auto=format&fit=crop&q=80&w=400" },
-              { title: "블렌딩 워크시트", type: "Logic", color: "bg-blue-100", img: "https://images.unsplash.com/photo-1456735190827-d1262f71b8a3?auto=format&fit=crop&q=80&w=400" },
-              { title: "몬테소리 매치 큐브", type: "Tactile", color: "bg-emerald-100", img: "https://images.unsplash.com/photo-1543269664-76bc3997d9ea?auto=format&fit=crop&q=80&w=400" },
-              { title: "무료 레벨링 교구", type: "Gift", color: "bg-purple-100", img: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&q=80&w=400" }
+              { title: "알파벳 사운드 게임", type: "Visual Arts", color: "bg-orange-100", img: "https://images.unsplash.com/photo-1516627145497-ae6968895b74?auto=format&fit=crop&q=80&w=400" },
+              { title: "CVC 단어 게임", type: "Logic", color: "bg-blue-100", img: "https://images.unsplash.com/photo-1456735190827-d1262f71b8a3?auto=format&fit=crop&q=80&w=400" },
+              { title: "필수 동사 변화표", type: "Tactile", color: "bg-emerald-100", img: "https://images.unsplash.com/photo-1543269664-76bc3997d9ea?auto=format&fit=crop&q=80&w=400" },
+              { title: "영어 명언 리스트", type: "Gift", color: "bg-purple-100", img: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&q=80&w=400" }
             ].map((material, idx) => (
               <motion.div 
                 key={idx}
@@ -601,7 +601,7 @@ const App = () => {
               </div>
               <div>
                 <h4 className="font-display font-black text-2xl text-slate-900 tracking-tight">제니 선생님</h4>
-                <p className="text-blue-600 font-bold">@canada-english_jenny</p>
+                <p className="text-blue-600 font-bold">https://blog.naver.com/canada-english</p>
               </div>
             </div>
             <a 
