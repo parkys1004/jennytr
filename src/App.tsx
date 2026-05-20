@@ -88,7 +88,7 @@ const App = () => {
   const navLinks = [
     { name: '홈', id: 'home' },
     { name: '강사 소개', id: 'about' },
-    { name: 'CVC 커리큘럼', id: 'curriculum' },
+    { name: '파닉스 커리큘럼', id: 'curriculum' },
     { name: '학습 자료', id: 'materials' },
     { name: '블로그', id: 'blog' },
   ];
@@ -102,7 +102,8 @@ const App = () => {
         "예시: f [프], m [음], s [스]"
       ],
       icon: <Mic className="w-8 h-8 text-blue-500" />,
-      color: "bg-blue-50"
+      color: "bg-blue-50",
+      href: "https://blog.naver.com/canada-english/224285798968"
     },
     {
       title: "Step 2: CVC (Short Vowels)",
@@ -112,7 +113,8 @@ const App = () => {
         "예시: c(크)+a(애)+t(트)=cat(캣), p(프)+i(이)+g(그)=pig(피그)"
       ],
       icon: <BookOpen className="w-8 h-8 text-emerald-500" />,
-      color: "bg-emerald-50"
+      color: "bg-emerald-50",
+      href: "https://blog.naver.com/canada-english/224254935505"
     },
     {
       title: "Step 3: Magic E (Long Vowels)",
@@ -122,7 +124,8 @@ const App = () => {
         "예시: h-o-p(홉)→hope(호우프), m-a-d(매드)→made(메이드)"
       ],
       icon: <Sparkles className="w-8 h-8 text-purple-500" />,
-      color: "bg-purple-50"
+      color: "bg-purple-50",
+      href: "https://blog.naver.com/canada-english/224285805235"
     },
     {
       title: "Step 4: Consonant Clusters",
@@ -132,7 +135,8 @@ const App = () => {
         "Digraphs(이중): 합쳐져 새로운 소리 (sh, ch, th 등)"
       ],
       icon: <GraduationCap className="w-8 h-8 text-orange-500" />,
-      color: "bg-orange-50"
+      color: "bg-orange-50",
+      href: "https://blog.naver.com/canada-english/224285836175"
     },
     {
       title: "Step 5: Vowel Teams (Bossy R)",
@@ -142,7 +146,8 @@ const App = () => {
         "Bossy R: ar[아-ㄹ], er/ir/ur[어-ㄹ] (예: car, bird)"
       ],
       icon: <Star className="w-8 h-8 text-rose-500" />,
-      color: "bg-rose-50"
+      color: "bg-rose-50",
+      href: "https://blog.naver.com/canada-english/224285854014"
     }
   ];
 
@@ -442,16 +447,20 @@ const App = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 relative">
             {curriculumSteps.map((step, idx) => (
-              <motion.div 
+              <motion.a 
                 key={idx}
+                href={step.href}
+                target="_blank"
+                rel="noreferrer"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
+                whileHover={{ y: -5 }}
                 transition={{ delay: idx * 0.1 }}
                 viewport={{ once: true }}
-                className="group"
+                className="group block"
               >
                 <div className="p-8 rounded-[2rem] glass-card border-white/50 h-full flex flex-col items-start transition-all hover:bg-white hover:shadow-2xl hover:shadow-blue-500/5">
-                  <div className={`mb-6 p-4 ${step.color} rounded-2xl`}>
+                  <div className={`mb-6 p-4 ${step.color} rounded-2xl group-hover:scale-110 transition-transform`}>
                     {step.icon}
                   </div>
                   <h3 className="text-xl font-black mb-4 font-display text-slate-900 group-hover:text-blue-600 transition-colors">{step.title}</h3>
@@ -474,7 +483,7 @@ const App = () => {
                     ))}
                   </div>
                 </div>
-              </motion.div>
+              </motion.a>
             ))}
           </div>
 
@@ -540,15 +549,18 @@ const App = () => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
-              { title: "알파벳 사운드 게임", type: "Visual Arts", color: "bg-orange-100", img: "https://images.unsplash.com/photo-1516627145497-ae6968895b74?auto=format&fit=crop&q=80&w=400" },
-              { title: "CVC 단어 게임", type: "Logic", color: "bg-blue-100", img: "https://images.unsplash.com/photo-1456735190827-d1262f71b8a3?auto=format&fit=crop&q=80&w=400" },
-              { title: "필수 동사 변화표", type: "Tactile", color: "bg-emerald-100", img: "https://images.unsplash.com/photo-1543269664-76bc3997d9ea?auto=format&fit=crop&q=80&w=400" },
-              { title: "영어 명언 리스트", type: "Gift", color: "bg-purple-100", img: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&q=80&w=400" }
+              { title: "알파벳 사운드 게임", type: "Visual Arts", color: "bg-orange-100", img: "https://images.unsplash.com/photo-1516627145497-ae6968895b74?auto=format&fit=crop&q=80&w=400", href: "https://blog.naver.com/canada-english/224286979692" },
+              { title: "CVC 단어 게임", type: "Logic", color: "bg-blue-100", img: "https://images.unsplash.com/photo-1456735190827-d1262f71b8a3?auto=format&fit=crop&q=80&w=400", href: "https://blog.naver.com/canada-english/224286981904" },
+              { title: "필수 동사 변화표", type: "Tactile", color: "bg-emerald-100", img: "https://images.unsplash.com/photo-1543269664-76bc3997d9ea?auto=format&fit=crop&q=80&w=400", href: "https://blog.naver.com/canada-english/224286983210" },
+              { title: "영어 명언 리스트", type: "Gift", color: "bg-purple-100", img: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&q=80&w=400", href: "https://blog.naver.com/canada-english/224286983850" }
             ].map((material, idx) => (
-              <motion.div 
+              <motion.a 
                 key={idx}
+                href={material.href}
+                target="_blank"
+                rel="noreferrer"
                 whileHover={{ scale: 1.05 }}
-                className="bg-white rounded-[2rem] overflow-hidden shadow-2xl shadow-slate-200/50 group"
+                className="bg-white rounded-[2rem] overflow-hidden shadow-2xl shadow-slate-200/50 group block"
               >
                 <div className="h-56 relative overflow-hidden">
                   <img src={material.img} alt={material.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
@@ -567,7 +579,7 @@ const App = () => {
                     </div>
                   </div>
                 </div>
-              </motion.div>
+              </motion.a>
             ))}
           </div>
         </div>
@@ -844,9 +856,9 @@ const App = () => {
             <h4 className="text-white font-display font-black text-base md:text-xl mb-6 md:mb-10 uppercase tracking-widest">상담 및 지원</h4>
             <div className="bg-slate-800/50 p-6 md:p-8 rounded-3xl border border-white/5">
               <p className="text-sm font-bold uppercase tracking-widest text-slate-500 mb-4">상담 및 문의 안내</p>
-              <p className="text-white font-black text-lg mb-6">AM 10:00 - PM 07:00</p>
-              <p className="leading-relaxed text-sm">
-                수업 관련 상담 및 교구 문의는 네이버 블로그 비밀댓글 또는 톡톡을 이용해 주세요.
+              <p className="text-white font-black text-base mb-2">제니 : 010 – 3962 – 0277</p>
+              <p className="leading-relaxed text-xs text-slate-300 break-keep">
+                수업 중에는 전화를 받기 어려울 수 있으니, 문자로 <span className="text-white font-bold">[지역 / 학년 or 나이 / 희망시간]</span>을 남겨주시면 확인 후 바로 연락 드리겠습니다.
               </p>
               <a href="https://blog.naver.com/canada-english" className="mt-8 block bg-blue-600 text-white py-3 rounded-xl font-bold text-center hover:bg-blue-700 transition-all">블로그로 이동</a>
             </div>
